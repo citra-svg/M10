@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Praktikum Stored Procedure</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #444;
+            margin-top: 30px;
+        }
+        pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Blog Praktikum Stored Procedure Lanjutan- SQL</h1>
+
+    <p>
+        Pada praktikum ini, dipelajari penggunaan Stored Procedure mulai dari parameter IN, OUT, IF/ELSE,
+        JOIN, GROUP BY, hingga operasi DML seperti INSERT, UPDATE, dan DELETE.
+    </p>
+
+    <h2>Contoh Query 1 - IF ELSE Status Mahasiswa</h2>
+    <pre>
+CREATE PROCEDURE showByKategori(IN p_kategori VARCHAR(20))
+BEGIN
+    IF p_kategori = 'aktif' THEN
+        SELECT * FROM mahasiswa WHERE idstatusaka = 1;
+    ELSE
+        SELECT * FROM mahasiswa WHERE idstatusaka = 4;
+    END IF;
+END;
+
+CALL showByKategori('aktif');
+    </pre>
+
+    <p>
+        Query ini digunakan untuk menampilkan data mahasiswa berdasarkan kategori status menggunakan IF/ELSE.
+    </p>
+
+    <h2>Contoh Query 2 - OUT Parameter AVG IPK</h2>
+    <pre>
+CREATE PROCEDURE avgIpkStatus(IN p_status INT, OUT p_avg REAL)
+BEGIN
+    SELECT ROUND(AVG(ipk),2)
+    INTO p_avg
+    FROM mahasiswa
+    WHERE idstatusaka = p_status;
+END;
+
+CALL avgIpkStatus(1,@hasil);
+SELECT @hasil;
+    </pre>
+
+    <p>
+        Query ini digunakan untuk menghitung rata-rata IPK berdasarkan status mahasiswa menggunakan parameter OUT.
+    </p>
+
+    <h2>Kesimpulan</h2>
+    <p>
+        Stored Procedure membantu menyederhanakan query, meningkatkan efisiensi, dan membuat logika database lebih terstruktur.
+    </p>
+
+</div>
+
+</body>
+</html>
